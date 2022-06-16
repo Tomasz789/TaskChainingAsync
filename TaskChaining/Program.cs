@@ -25,7 +25,7 @@ namespace TaskChaining
                         max = rnd.Next();
                     }
                     while (min > max);
-                    return taskClass.GenerateIntegerArray(10, 0, 10);
+                    return taskClass.GenerateIntegerArray(10, min, max);
                 }
             );
 
