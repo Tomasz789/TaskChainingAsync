@@ -7,10 +7,10 @@ namespace TasksLib
 {
     public interface ITaskChainingInterface
     {
-        int[] GenerateIntegerArray(int number, int min, int max);
-        int[] ReturnMultipliedArray(int[] tab, int mult);
-        int[] SortArrayAscending(int[] array);
-        int GetAverageValue(int [] tab);
+        Task<int[]> GenerateIntegerArray(int number, int min, int max);
+        Task<int[]> ReturnMultipliedArray(int[] tab, int mult);
+        Task<int[]> SortArrayAscending(int[] array);
+        Task<int> GetAverageValue(int [] tab);
     }
     public class TaskChainingClass : ITaskChainingInterface
     {
@@ -23,7 +23,7 @@ namespace TasksLib
         /// <returns>An array with a number value.</returns>
         /// <exception cref="ArgumentOutOfRangeException">When number of array items is less than 0.</exception>
         /// <exception cref="ArgumentException">If value of max is greater than min.</exception>
-        public int[] GenerateIntegerArray(int number, int min, int max)
+        public async Task<int[]> GenerateIntegerArray(int number, int min, int max)
         {
             if (number < 0)
             {
@@ -43,7 +43,7 @@ namespace TasksLib
                 array[i] = random.Next(min, max);
             }
 
-            return array;
+            return await Task.FromResult(array);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace TasksLib
         /// </summary>
         /// <param name="tab">Array with values to calcluate avg value.</param>
         /// <returns>Average value.</returns>
-        public int GetAverageValue(int [] tab)
+        public async Task<int> GetAverageValue(int [] tab)
         {
             CheckArray(tab);
             int sum = 0;
@@ -61,7 +61,9 @@ namespace TasksLib
                 sum += tab[i];
             }
 
-            return sum / tab.Length;
+            int res =  sum / tab.Length;
+
+            return await Task.FromResult(res);
         }
 
         /// <summary>
@@ -70,7 +72,7 @@ namespace TasksLib
         /// <param name="tab">Array to multiply.</param>
         /// <param name="mult">Multiplication value. </param>
         /// <returns> A new multiplied array.</returns>
-        public int[] ReturnMultipliedArray(int [] tab, int mult)
+        public async Task<int[]> ReturnMultipliedArray(int [] tab, int mult)
         {
             CheckArray(tab);
 
@@ -88,7 +90,7 @@ namespace TasksLib
                 array[i] = mult * tab[i];
             }
 
-            return array;
+            return await Task.FromResult(array);
         }
 
         /// <summary>
@@ -96,11 +98,11 @@ namespace TasksLib
         /// </summary>
         /// <param name="array">Array with values.</param>
         /// <returns>Sorted array.</returns>
-        public int[] SortArrayAscending(int[] array)
+        public async Task<int[]> SortArrayAscending(int[] array)
         {
             CheckArray(array);
             Array.Sort(array);
-            return array;
+            return await Task.FromResult(array);
         }
 
         /// <summary>
