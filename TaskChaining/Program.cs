@@ -25,17 +25,21 @@ namespace TaskChaining
                         max = rnd.Next();
                     }
                     while (min > max);
-                    return taskClass.GenerateIntegerArray(10, min, max);
+                    var res = taskClass.GenerateIntegerArray(10, min, max);
+                    Console.WriteLine("Generated array values: ");
+                    PrintCurrentArrayValues(res);
+                    Console.WriteLine();
+                    Console.WriteLine("Average value of generated array items: {0}", taskClass.GetAverageValue(res));
+                    return res;
                 }
             );
 
             await generateArrayTask.ContinueWith(task =>
                 {
                     Task.Delay(500).Wait();
-                    PrintCurrentArrayValues(task.Result);
                     int rndVal = rnd.Next();
                     Console.WriteLine("Multiplication value (random): {0}", rndVal);
-                    Console.WriteLine($"Result after generating task - avg value: {taskClass.GetAverageValue(generateArrayTask.Result)} ");
+                    Console.WriteLine();
                     return taskClass.ReturnMultipliedArray(generateArrayTask.Result, rndVal);
                 }
             )
@@ -43,6 +47,7 @@ namespace TaskChaining
             {
                 Task.Delay(500).Wait();
                 taskClass.SortArrayAscending(antecedent.Result);
+                Console.WriteLine($"Result after multiplication task - avg value: {taskClass.GetAverageValue(antecedent.Result)} ");
                 PrintCurrentArrayValues(antecedent.Result);
                 Console.WriteLine();
                 Console.WriteLine("Average value after mult. " + taskClass.GetAverageValue(antecedent.Result));
