@@ -13,7 +13,7 @@ namespace TaskChaining
         {
             var rnd = new Random();
             var taskClass = new TaskChainingClass();
-            int min = 0, max = 1;
+            int min, max;
 
             do
             {
