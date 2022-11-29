@@ -1,6 +1,6 @@
 # TaskChaining - async/await case
 
-Simple application that demonstrates how the task chaining works. <br />
+<h1>Simple application that demonstrates how the task chaining works.</h1> <br />
 There are none methods from TPL library used. The app is based on asynchronous Tasks and async/await keywords approach.
 App runs four consecutive tasks: <br/>
 
